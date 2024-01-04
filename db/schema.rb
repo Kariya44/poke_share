@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_30_124242) do
+ActiveRecord::Schema[7.0].define(version: 2024_01_04_020009) do
   create_table "authentications", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "provider", null: false
@@ -18,6 +18,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_124242) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider", "uid"], name: "index_authentications_on_provider_and_uid"
+  end
+
+  create_table "posts", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "title", null: false
+    t.text "body", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -29,4 +38,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_30_124242) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "posts", "users"
 end
